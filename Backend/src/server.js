@@ -14,6 +14,7 @@ const app = express();
 
 app.use(express.json());
 app.options("*", cors());
+app.use(cors());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/parking", parkingRoutes);
