@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import cors from "cors";
 import { connectDB } from "./config/db.js";
 
 import authRoutes from "./routes/auth.routes.js";
@@ -10,10 +11,16 @@ dotenv.config();
 connectDB();
 
 const app = express();
+
 app.use(express.json());
+app.options("*", cors());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/parking", parkingRoutes);
 app.use("/api/admin", adminRoutes);
 
-app.listen(4000, () => console.log("Server running on port 4000"));
+const PORT = process.env.PORT || 4000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
